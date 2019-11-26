@@ -1,6 +1,6 @@
 {
     "name": "sonicxweb",
-    "version": "2.8.0",
+    "version": "2.8.1",
     "description": "JavaScript SDK that encapsulates the SONICX HTTP API",
     "main": "dist/SonicxWeb.node.js",
     "scripts": {

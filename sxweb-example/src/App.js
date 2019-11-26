@@ -7,7 +7,7 @@ const HttpProvider = SonicxWeb.providers.HttpProvider;
 const fullNode = new HttpProvider('https://fullnode.sonicxhub.com');
 const solidityNode = new HttpProvider('https://solnode.sonicxhub.com');
 const eventServer = 'https://event.sonicxhub.com/';
-const privateKey = 'da146374a75310b9666e834ee4ad0866d6f4035967bfc76217c5a495fff9f0d0';
+const privateKey = 'D8B708BFFFA424473D83349CF4C6A2395E4436E065B60F0BF31E582281256D1C';
 
 export default class App extends Component {
     constructor() {
@@ -27,6 +27,9 @@ export default class App extends Component {
 
             const nodeInfo = await sonicxWeb.trx.getNodeInfo();
             console.log(nodeInfo);
+
+            const address = sonicxWeb.address.fromPrivateKey(privateKey);
+            console.log(address);
 
 
             const nodes = await sonicxWeb.isConnected();
