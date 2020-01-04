@@ -15,11 +15,6 @@
         "coverage": "npm run-script test:browser && npm run-script test",
         "btest": "npm run build:dev && npm run test"
     },
-    "husky": {
-        "hooks": {
-            "pre-commit": "node ./scripts/pre-commit.js"
-        }
-    },
     "dependencies": {
         "@babel/runtime": "^7.0.0",
         "axios": "^0.19.0",
