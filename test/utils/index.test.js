@@ -1,6 +1,6 @@
 const chai = require('chai');
-const tronWebBuilder = require('../helpers/tronWebBuilder');
-const SonicxWeb = tronWebBuilder.SonicxWeb;
+const sonicxwebBuilder = require('../helpers/sonicxwebBuilder');
+const SonicxWeb = sonicxwebBuilder.SonicxWeb;
 const BigNumber = require('bignumber.js');
 
 const assert = chai.assert;
@@ -11,7 +11,7 @@ describe('SonicxWeb.utils', function () {
 
         it('should verify good urls', function () {
 
-            const tronWeb = tronWebBuilder.createInstance();
+            const tronWeb = sonicxwebBuilder.createInstance();
 
             assert.isTrue(tronWeb.utils.isValidURL('https://some.example.com:9090/casa?qe=3'))
             assert.isTrue(tronWeb.utils.isValidURL('www.example.com/welcome'))
@@ -27,7 +27,7 @@ describe('SonicxWeb.utils', function () {
     describe("#isArray()", function () {
 
         it('should verify that a value is an array', function () {
-            const tronWeb = tronWebBuilder.createInstance();
+            const tronWeb = sonicxwebBuilder.createInstance();
 
             assert.isTrue(tronWeb.utils.isArray([]));
             assert.isTrue(tronWeb.utils.isArray([[2], {a: 3}]));
@@ -43,7 +43,7 @@ describe('SonicxWeb.utils', function () {
     describe("#isJson()", function () {
 
         it('should verify that a value is a JSON string', function () {
-            const tronWeb = tronWebBuilder.createInstance();
+            const tronWeb = sonicxwebBuilder.createInstance();
 
             assert.isTrue(tronWeb.utils.isJson('[]'));
             assert.isTrue(tronWeb.utils.isJson('{"key":"value"}'));
@@ -59,7 +59,7 @@ describe('SonicxWeb.utils', function () {
     describe("#isBoolean()", function () {
 
         it('should verify that a value is a JSON string', function () {
-            const tronWeb = tronWebBuilder.createInstance();
+            const tronWeb = sonicxwebBuilder.createInstance();
 
             assert.isTrue(tronWeb.utils.isBoolean(true));
             assert.isTrue(tronWeb.utils.isBoolean('a' == []));
@@ -74,7 +74,7 @@ describe('SonicxWeb.utils', function () {
     describe("#isBigNumber()", function () {
 
         it('should verify that a value is a JSON string', function () {
-            const tronWeb = tronWebBuilder.createInstance();
+            const tronWeb = sonicxwebBuilder.createInstance();
 
             const bigNumber = BigNumber('1234565432123456778765434456777')
 
@@ -92,7 +92,7 @@ describe('SonicxWeb.utils', function () {
     describe("#isString()", function () {
 
         it('should verify that a valyue is a string', function () {
-            const tronWeb = tronWebBuilder.createInstance();
+            const tronWeb = sonicxwebBuilder.createInstance();
 
             assert.isTrue(tronWeb.utils.isString('str'));
             assert.isTrue(tronWeb.utils.isString(13..toString()));
@@ -106,7 +106,7 @@ describe('SonicxWeb.utils', function () {
     describe("#isFunction()", function () {
 
         it('should verify that a value is a function', function () {
-            const tronWeb = tronWebBuilder.createInstance();
+            const tronWeb = sonicxwebBuilder.createInstance();
 
             assert.isTrue(tronWeb.utils.isFunction(new Function()));
             assert.isTrue(tronWeb.utils.isFunction(() => {
@@ -122,7 +122,7 @@ describe('SonicxWeb.utils', function () {
     describe('#isHex()', function () {
         it('should verify that a string is an hex string', function () {
 
-            const tronWeb = tronWebBuilder.createInstance();
+            const tronWeb = sonicxwebBuilder.createInstance();
 
             let input = '0x1';
             let expected = true;
@@ -155,7 +155,7 @@ describe('SonicxWeb.utils', function () {
     describe("#isInteger()", function () {
 
         it('should verify that a value is an integer', function () {
-            const tronWeb = tronWebBuilder.createInstance();
+            const tronWeb = sonicxwebBuilder.createInstance();
 
             assert.isTrue(tronWeb.utils.isInteger(2345434));
             assert.isTrue(tronWeb.utils.isInteger(-234e4));
@@ -170,7 +170,7 @@ describe('SonicxWeb.utils', function () {
     describe("#hasProperty()", function () {
 
         it('should verify that an object has a specific property', function () {
-            const tronWeb = tronWebBuilder.createInstance();
+            const tronWeb = sonicxwebBuilder.createInstance();
 
             assert.isTrue(tronWeb.utils.hasProperty({p: 2}, 'p'));
             assert.isFalse(tronWeb.utils.hasProperty([{p: 2}], 'p'));
@@ -184,7 +184,7 @@ describe('SonicxWeb.utils', function () {
     describe("#hasProperties()", function () {
 
         it('should verify that an object has some specific properties', function () {
-            const tronWeb = tronWebBuilder.createInstance();
+            const tronWeb = sonicxwebBuilder.createInstance();
 
             assert.isTrue(tronWeb.utils.hasProperties({p: 2, s: 2}, 'p', 's'));
 
@@ -198,7 +198,7 @@ describe('SonicxWeb.utils', function () {
     describe("#mapEvent()", function () {
 
         it('should map an event result', function () {
-            const tronWeb = tronWebBuilder.createInstance();
+            const tronWeb = sonicxwebBuilder.createInstance();
 
             const event = {
                 block_number: 'blockNumber',
@@ -236,7 +236,7 @@ describe('SonicxWeb.utils', function () {
     describe("#padLeft()", function () {
 
         it('should return the pad left of a string', function () {
-            const tronWeb = tronWebBuilder.createInstance();
+            const tronWeb = sonicxwebBuilder.createInstance();
 
             assert.equal(tronWeb.utils.padLeft('09e80f', '0', 12), '00000009e80f');
             // assert.equal(tronWeb.utils.padLeft(new Function, '0', 32), '0000000function anonymous() {\n\n}');
@@ -249,7 +249,7 @@ describe('SonicxWeb.utils', function () {
     describe("#ethersUtils()", function () {
 
         it('should import sha256 from ethers and has a string', function () {
-            const tronWeb = tronWebBuilder.createInstance();
+            const tronWeb = sonicxwebBuilder.createInstance();
 
             const string = '0x' + Buffer.from('some string').toString('hex');
             const hash = tronWeb.utils.ethersUtils.sha256(string);

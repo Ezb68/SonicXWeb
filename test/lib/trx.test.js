@@ -7,9 +7,9 @@ const wait = require('../helpers/wait');
 const broadcaster = require('../helpers/broadcaster');
 const pollAccountFor = require('../helpers/pollAccountFor');
 const _ = require('lodash');
-const tronWebBuilder = require('../helpers/tronWebBuilder');
+const sonicxwebBuilder = require('../helpers/sonicxwebBuilder');
 const assertEqualHex = require('../helpers/assertEqualHex');
-const SonicxWeb = tronWebBuilder.SonicxWeb;
+const SonicxWeb = sonicxwebBuilder.SonicxWeb;
 const config = require('../helpers/config');
 const waitChainData = require('../helpers/waitChainData');
 const {
@@ -26,9 +26,9 @@ describe('SonicxWeb.trx', function () {
     let emptyAccount;
 
     before(async function () {
-        tronWeb = tronWebBuilder.createInstance();
+        tronWeb = sonicxwebBuilder.createInstance();
         // ALERT this works only with Tron Quickstart:
-        accounts = await tronWebBuilder.getTestAccounts(-1);
+        accounts = await sonicxwebBuilder.getTestAccounts(-1);
         emptyAccount = await SonicxWeb.createAccount();
     });
 

@@ -1,5 +1,5 @@
 const chai = require('chai');
-const tronWebBuilder = require('../helpers/tronWebBuilder');
+const sonicxwebBuilder = require('../helpers/sonicxwebBuilder');
 
 const assert = chai.assert;
 
@@ -8,7 +8,7 @@ describe('SonicxWeb.utils.code', function () {
     describe('#bin2String()', function () {
 
         it("should convert a byte to a hex string", async function () {
-            const tronWeb = tronWebBuilder.createInstance();
+            const tronWeb = sonicxwebBuilder.createInstance();
 
             assert.equal(tronWeb.utils.code.bin2String([78, 112, 87, 69, 99, 65]), 'NpWEcA');
         });
@@ -17,7 +17,7 @@ describe('SonicxWeb.utils.code', function () {
     describe('#arrayEquals()', function () {
 
         it("should compare two arrays to see if they are equal", async function () {
-            const tronWeb = tronWebBuilder.createInstance();
+            const tronWeb = sonicxwebBuilder.createInstance();
 
             const a = [78, 112, 87, 69, 99, 65];
             const b = [78, 112, 69, 99, 65];
@@ -38,7 +38,7 @@ describe('SonicxWeb.utils.code', function () {
     describe('#stringToBytes()', function () {
 
         it("should convert a string to an array of bytes", async function () {
-            const tronWeb = tronWebBuilder.createInstance();
+            const tronWeb = sonicxwebBuilder.createInstance();
 
             const a = 'Қࡀпω';
 
@@ -50,7 +50,7 @@ describe('SonicxWeb.utils.code', function () {
         });
 
         it("should throw if something else than a string is passed as input", async function () {
-            const tronWeb = tronWebBuilder.createInstance();
+            const tronWeb = sonicxwebBuilder.createInstance();
 
             assert.throws(() => {
                 tronWeb.utils.code.stringToBytes([210, 154, 224, 161, 128, 208, 191, 207, 137])
@@ -66,7 +66,7 @@ describe('SonicxWeb.utils.code', function () {
     describe('#hexChar2byte()', function () {
 
         it("should convert an hex char to a byte", async function () {
-            const tronWeb = tronWebBuilder.createInstance();
+            const tronWeb = sonicxwebBuilder.createInstance();
 
             assert.equal(tronWeb.utils.code.hexChar2byte('0'), 0);
             assert.equal(tronWeb.utils.code.hexChar2byte('D'), 13);
@@ -76,7 +76,7 @@ describe('SonicxWeb.utils.code', function () {
         });
 
         it("should throw if something else than a string is passed as input", async function () {
-            const tronWeb = tronWebBuilder.createInstance();
+            const tronWeb = sonicxwebBuilder.createInstance();
 
             assert.throws(() => {
                 tronWeb.utils.code.hexChar2byte(12)
@@ -92,7 +92,7 @@ describe('SonicxWeb.utils.code', function () {
     describe('#isHexChar()', function () {
 
         it("should verify that an hex char is a valid hex char", async function () {
-            const tronWeb = tronWebBuilder.createInstance();
+            const tronWeb = sonicxwebBuilder.createInstance();
 
             assert.equal(tronWeb.utils.code.isHexChar('0'), 1);
             assert.equal(tronWeb.utils.code.isHexChar('e'), 1);
@@ -106,14 +106,14 @@ describe('SonicxWeb.utils.code', function () {
     describe('#hexStr2byteArray()', function () {
 
         it("should verify that an hex char is a valid hex char", async function () {
-            const tronWeb = tronWebBuilder.createInstance();
+            const tronWeb = sonicxwebBuilder.createInstance();
 
             assert.isTrue(tronWeb.utils.code.arrayEquals(tronWeb.utils.code.hexStr2byteArray('49206C6F7665206461726B20636F6D6564696573'), [73, 32, 108, 111, 118, 101, 32, 100, 97, 114, 107, 32, 99, 111, 109, 101, 100, 105, 101, 115]));
 
         });
 
         it("should throw if we pass an invalid hex string", async function () {
-            const tronWeb = tronWebBuilder.createInstance();
+            const tronWeb = sonicxwebBuilder.createInstance();
 
             assert.throws(() => {
                 tronWeb.utils.code.hexStr2byteArray('ZASSyue')
@@ -129,7 +129,7 @@ describe('SonicxWeb.utils.code', function () {
     describe('#strToDate()', function () {
 
         it("should verify that an hex char is a valid hex char", async function () {
-            const tronWeb = tronWebBuilder.createInstance();
+            const tronWeb = sonicxwebBuilder.createInstance();
 
             let input = '2018-09-23 13-45-03';
             let regex = RegExp('Sep 23 2018 13:45:03')
@@ -142,7 +142,7 @@ describe('SonicxWeb.utils.code', function () {
         });
 
         it("should throw if we pass an invalid hex string", async function () {
-            const tronWeb = tronWebBuilder.createInstance();
+            const tronWeb = sonicxwebBuilder.createInstance();
 
             assert.throws(() => {
                 tronWeb.utils.code.strToDate('2018-02-')
@@ -165,7 +165,7 @@ describe('SonicxWeb.utils.code', function () {
     describe('#isNumber()', function () {
 
         it("should verify that an numeric char is a number", async function () {
-            const tronWeb = tronWebBuilder.createInstance();
+            const tronWeb = sonicxwebBuilder.createInstance();
 
             assert.equal(tronWeb.utils.code.isNumber('0'), 1);
             assert.equal(tronWeb.utils.code.isHexChar('Z'), 0);
@@ -175,7 +175,7 @@ describe('SonicxWeb.utils.code', function () {
     describe('#getStringType()', function () {
 
         it("should return the type of a string", async function () {
-            const tronWeb = tronWebBuilder.createInstance();
+            const tronWeb = sonicxwebBuilder.createInstance();
 
             assert.equal(tronWeb.utils.code.getStringType('bf7e69851988c80e5484e52f4f6aca99479458b6'), 1);
 

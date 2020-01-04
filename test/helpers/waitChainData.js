@@ -1,5 +1,5 @@
-const tronWebBuilder = require('./tronWebBuilder');
-const tronWeb = tronWebBuilder.createInstance();
+const sonicxwebBuilder = require('./sonicxwebBuilder');
+const tronWeb = sonicxwebBuilder.createInstance();
 const wait = require('./wait');
 const chalk = require('chalk');
 

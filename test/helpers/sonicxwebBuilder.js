@@ -1,5 +1,6 @@
 const chalk = require('chalk')
-const SonicxWeb = require('../setup/SonicxWeb');
+// const SonicxWeb = require('../setup/SonicxWeb');
+const SonicxWeb = require('../../');
 const jlog = require('./jlog')
 
 const {FULL_NODE_API, SOLIDITY_NODE_API, EVENT_API, PRIVATE_KEY} = require('./config')

@@ -1,9 +1,9 @@
 const _ = require('lodash');
 const wait = require('./wait');
-const tronWebBuilder = require('./tronWebBuilder')
+const sonicxwebBuilder = require('./sonicxwebBuilder')
 
 module.exports = async function pollAccountFor(address, property, value = false, interval = 3, timeout = 10000) {
-    const tronWeb = tronWebBuilder.createInstance()
+    const tronWeb = sonicxwebBuilder.createInstance()
     let now = Date.now()
     while (true) {
         if(Date.now() > now + timeout) {

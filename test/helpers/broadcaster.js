@@ -1,7 +1,7 @@
-const tronWebBuilder = require('../helpers/tronWebBuilder');
+const sonicxwebBuilder = require('../helpers/sonicxwebBuilder');
 
 module.exports = async function (func, pk, transaction) {
-    const tronWeb = tronWebBuilder.createInstance();
+    const tronWeb = sonicxwebBuilder.createInstance();
     if( !transaction) {
         transaction = await func;
     }

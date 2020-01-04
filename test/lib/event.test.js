@@ -1,8 +1,8 @@
 const chai = require('chai');
 const {FULL_NODE_API} = require('../helpers/config');
 const assertThrow = require('../helpers/assertThrow');
-const tronWebBuilder = require('../helpers/tronWebBuilder');
-const SonicxWeb = tronWebBuilder.SonicxWeb;
+const sonicxwebBuilder = require('../helpers/sonicxwebBuilder');
+const SonicxWeb = sonicxwebBuilder.SonicxWeb;
 const jlog = require('../helpers/jlog')
 const broadcaster = require('../helpers/broadcaster');
 const wait = require('../helpers/wait')
@@ -18,8 +18,8 @@ describe('SonicxWeb.lib.event', async function () {
     let eventLength = 0
 
     before(async function () {
-        tronWeb = tronWebBuilder.createInstance();
-        accounts = await tronWebBuilder.getTestAccounts(-1);
+        tronWeb = sonicxwebBuilder.createInstance();
+        accounts = await sonicxwebBuilder.getTestAccounts(-1);
 
         const result = await broadcaster(tronWeb.transactionBuilder.createSmartContract({
             abi: [

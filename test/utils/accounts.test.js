@@ -1,6 +1,6 @@
 const chai = require('chai');
 const {ADDRESS_HEX, ADDRESS_BASE58} = require('../helpers/config');
-const tronWebBuilder = require('../helpers/tronWebBuilder');
+const sonicxwebBuilder = require('../helpers/sonicxwebBuilder');
 
 const assert = chai.assert;
 
@@ -9,7 +9,7 @@ describe('SonicxWeb.utils.accounts', function () {
     describe('#generateAccount()', function () {
 
         it("should generate a new account", async function () {
-            const tronWeb = tronWebBuilder.createInstance();
+            const tronWeb = sonicxwebBuilder.createInstance();
 
             const newAccount = await tronWeb.utils.accounts.generateAccount();
             assert.equal(newAccount.privateKey.length, 64);

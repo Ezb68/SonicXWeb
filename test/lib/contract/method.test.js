@@ -4,8 +4,8 @@ const wait = require('../../helpers/wait');
 const assertThrow = require('../../helpers/assertThrow');
 const broadcaster = require('../../helpers/broadcaster');
 const _ = require('lodash');
-const tronWebBuilder = require('../../helpers/tronWebBuilder');
-const SonicxWeb = tronWebBuilder.SonicxWeb;
+const sonicxwebBuilder = require('../../helpers/sonicxwebBuilder');
+const SonicxWeb = sonicxwebBuilder.SonicxWeb;
 
 const testRevertContract = require('../../fixtures/contracts').testRevert;
 const testSetValContract = require('../../fixtures/contracts').testSetVal;
@@ -17,9 +17,9 @@ describe('#contract.method', function () {
     let emptyAccount;
 
     before(async function () {
-        tronWeb = tronWebBuilder.createInstance();
+        tronWeb = sonicxwebBuilder.createInstance();
         // ALERT this works only with Tron Quickstart:
-        accounts = await tronWebBuilder.getTestAccounts(-1);
+        accounts = await sonicxwebBuilder.getTestAccounts(-1);
         emptyAccount = await SonicxWeb.createAccount();
     });
 

@@ -1,5 +1,5 @@
 const chai = require('chai');
-const tronWebBuilder = require('../helpers/tronWebBuilder');
+const sonicxwebBuilder = require('../helpers/sonicxwebBuilder');
 
 const assert = chai.assert;
 
@@ -8,7 +8,7 @@ describe('SonicxWeb.utils.base58', function () {
     describe('#encode58()', function () {
 
         it("should encode a buffer in base58 string", async function () {
-            const tronWeb = tronWebBuilder.createInstance();
+            const tronWeb = sonicxwebBuilder.createInstance();
 
             let input = Buffer.from('0xbf7e698', 'utf-8');
             let expected = 'cnTsZgYWJRAw';
@@ -34,7 +34,7 @@ describe('SonicxWeb.utils.base58', function () {
 
         it("should return '' or '1' if passing something different from a buffer", async function () {
             // TODO. Is this what we want?
-            const tronWeb = tronWebBuilder.createInstance();
+            const tronWeb = sonicxwebBuilder.createInstance();
 
             assert.equal(tronWeb.utils.base58.encode58([]), '');
             assert.equal(tronWeb.utils.base58.encode58('some string'), '');
@@ -45,7 +45,7 @@ describe('SonicxWeb.utils.base58', function () {
     describe('#decode58()', function () {
 
         it("should decode a base58 string in a buffer", async function () {
-            const tronWeb = tronWebBuilder.createInstance();
+            const tronWeb = sonicxwebBuilder.createInstance();
 
             const input = 'cnTsZgYWJRAw';
             const expected = Buffer.from('0xbf7e698', 'utf-8');
@@ -59,7 +59,7 @@ describe('SonicxWeb.utils.base58', function () {
 
         it("should return [] or [0] if passing something '' or '1'", async function () {
             // TODO. As above. Is this what we want?
-            const tronWeb = tronWebBuilder.createInstance();
+            const tronWeb = sonicxwebBuilder.createInstance();
 
             assert.equal(JSON.stringify(tronWeb.utils.base58.decode58('')), "[]");
             assert.equal(JSON.stringify(tronWeb.utils.base58.decode58('1')), "[0]");

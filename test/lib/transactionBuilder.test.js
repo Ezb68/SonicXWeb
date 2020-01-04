@@ -7,13 +7,13 @@ const wait = require('../helpers/wait');
 const broadcaster = require('../helpers/broadcaster');
 const pollAccountFor = require('../helpers/pollAccountFor');
 const _ = require('lodash');
-const tronWebBuilder = require('../helpers/tronWebBuilder');
+const sonicxwebBuilder = require('../helpers/sonicxwebBuilder');
 const assertEqualHex = require('../helpers/assertEqualHex');
 const testRevertContract = require('../fixtures/contracts').testRevert;
 const testConstantContract = require('../fixtures/contracts').testConstant;
 const waitChainData = require('../helpers/waitChainData');
 
-const SonicxWeb = tronWebBuilder.SonicxWeb;
+const SonicxWeb = sonicxwebBuilder.SonicxWeb;
 const {
     ADDRESS_HEX,
     ADDRESS_BASE58,
@@ -31,9 +31,9 @@ describe('SonicxWeb.transactionBuilder', function () {
     let isAllowSameTokenNameApproved
 
     before(async function () {
-        tronWeb = tronWebBuilder.createInstance();
+        tronWeb = sonicxwebBuilder.createInstance();
         // ALERT this works only with Tron Quickstart:
-        accounts = await tronWebBuilder.getTestAccounts(-1);
+        accounts = await sonicxwebBuilder.getTestAccounts(-1);
         emptyAccount = await SonicxWeb.createAccount();
         isAllowSameTokenNameApproved = await isProposalApproved(tronWeb, 'getAllowSameTokenName')
     });

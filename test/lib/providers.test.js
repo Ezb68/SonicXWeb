@@ -1,8 +1,8 @@
 const chai = require('chai');
 const {FULL_NODE_API} = require('../helpers/config');
 const assertThrow = require('../helpers/assertThrow');
-const tronWebBuilder = require('../helpers/tronWebBuilder');
-const SonicxWeb = tronWebBuilder.SonicxWeb;
+const sonicxwebBuilder = require('../helpers/sonicxwebBuilder');
+const SonicxWeb = sonicxwebBuilder.SonicxWeb;
 
 const assert = chai.assert;
 
@@ -21,7 +21,7 @@ describe('SonicxWeb.lib.providers', async function () {
         });
 
         it('should throw if the host is not valid', function () {
-            const tronWeb = tronWebBuilder.createInstance();
+            const tronWeb = sonicxwebBuilder.createInstance();
 
             assert.throws(() => new SonicxWeb.providers.HttpProvider(
                 '$' + FULL_NODE_API

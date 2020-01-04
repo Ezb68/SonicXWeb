@@ -1,7 +1,7 @@
 const chai = require('chai');
 const {ADDRESS_HEX, ADDRESS_BASE58, FULL_NODE_API, SOLIDITY_NODE_API, EVENT_API, PRIVATE_KEY} = require('./helpers/config');
-const tronWebBuilder = require('./helpers/tronWebBuilder');
-const SonicxWeb = tronWebBuilder.SonicxWeb;
+const sonicxwebBuilder = require('./helpers/sonicxwebBuilder');
+const SonicxWeb = sonicxwebBuilder.SonicxWeb;
 const log = require('./helpers/log')
 const BigNumber = require('bignumber.js');
 const broadcaster = require('./helpers/broadcaster');
@@ -15,7 +15,7 @@ describe('SonicxWeb Instance', function () {
 
     describe('#constructor()', function () {
         it('should create a full instance', function () {
-            const tronWeb = tronWebBuilder.createInstance();
+            const tronWeb = sonicxwebBuilder.createInstance();
             assert.instanceOf(tronWeb, SonicxWeb);
         });
 
@@ -107,7 +107,7 @@ describe('SonicxWeb Instance', function () {
 
     describe('#version()', function () {
         it('should verify that the version is available as static and non-static property', function () {
-            const tronWeb = tronWebBuilder.createInstance();
+            const tronWeb = sonicxwebBuilder.createInstance();
 
             assert.equal(typeof tronWeb.version, 'string');
             assert.equal(typeof SonicxWeb.version, 'string');
@@ -117,7 +117,7 @@ describe('SonicxWeb Instance', function () {
 
     describe('#fullnodeVersion()', function () {
         it('should verify that the version of the fullNode is available', function () {
-            const tronWeb = tronWebBuilder.createInstance();
+            const tronWeb = sonicxwebBuilder.createInstance();
             // setTimeout(() => console.log(tronWeb.fullnodeVersion), 500)
             assert.equal(typeof tronWeb.fullnodeVersion, 'string');
 
@@ -126,7 +126,7 @@ describe('SonicxWeb Instance', function () {
 
     describe('#setDefaultBlock()', function () {
         it('should accept a positive integer', function () {
-            const tronWeb = tronWebBuilder.createInstance();
+            const tronWeb = sonicxwebBuilder.createInstance();
 
             tronWeb.setDefaultBlock(1);
 
@@ -134,7 +134,7 @@ describe('SonicxWeb Instance', function () {
         });
 
         it('should correct a negative integer', function () {
-            const tronWeb = tronWebBuilder.createInstance();
+            const tronWeb = sonicxwebBuilder.createInstance();
 
             tronWeb.setDefaultBlock(-2);
 
@@ -142,7 +142,7 @@ describe('SonicxWeb Instance', function () {
         });
 
         it('should accept 0', function () {
-            const tronWeb = tronWebBuilder.createInstance();
+            const tronWeb = sonicxwebBuilder.createInstance();
 
             tronWeb.setDefaultBlock(0);
 
@@ -150,7 +150,7 @@ describe('SonicxWeb Instance', function () {
         });
 
         it('should be able to clear', function () {
-            const tronWeb = tronWebBuilder.createInstance();
+            const tronWeb = sonicxwebBuilder.createInstance();
 
             tronWeb.setDefaultBlock();
 
@@ -158,7 +158,7 @@ describe('SonicxWeb Instance', function () {
         });
 
         it('should accept "earliest"', function () {
-            const tronWeb = tronWebBuilder.createInstance();
+            const tronWeb = sonicxwebBuilder.createInstance();
 
             tronWeb.setDefaultBlock('earliest');
 
@@ -166,7 +166,7 @@ describe('SonicxWeb Instance', function () {
         });
 
         it('should accept "latest"', function () {
-            const tronWeb = tronWebBuilder.createInstance();
+            const tronWeb = sonicxwebBuilder.createInstance();
 
             tronWeb.setDefaultBlock('latest');
 
@@ -174,13 +174,13 @@ describe('SonicxWeb Instance', function () {
         });
 
         it('should reject a decimal', function () {
-            const tronWeb = tronWebBuilder.createInstance();
+            const tronWeb = sonicxwebBuilder.createInstance();
 
             assert.throws(() => tronWeb.setDefaultBlock(10.2), 'Invalid block ID provided');
         });
 
         it('should reject a string', function () {
-            const tronWeb = tronWebBuilder.createInstance();
+            const tronWeb = sonicxwebBuilder.createInstance();
 
             assert.throws(() => tronWeb.setDefaultBlock('test'), 'Invalid block ID provided');
         });
@@ -213,7 +213,7 @@ describe('SonicxWeb Instance', function () {
         it('should emit a privateKeyChanged event', function (done) {
             this.timeout(1000);
 
-            const tronWeb = tronWebBuilder.createInstance();
+            const tronWeb = sonicxwebBuilder.createInstance();
 
             tronWeb.on('privateKeyChanged', privateKey => {
                 done(
@@ -227,7 +227,7 @@ describe('SonicxWeb Instance', function () {
 
     describe('#setAddress()', function () {
         it('should accept a hex address', function () {
-            const tronWeb = tronWebBuilder.createInstance();
+            const tronWeb = sonicxwebBuilder.createInstance();
 
             tronWeb.setAddress(ADDRESS_HEX);
 
@@ -236,7 +236,7 @@ describe('SonicxWeb Instance', function () {
         });
 
         it('should accept a base58 address', function () {
-            const tronWeb = tronWebBuilder.createInstance();
+            const tronWeb = sonicxwebBuilder.createInstance();
 
             tronWeb.setAddress(ADDRESS_BASE58);
 
@@ -245,7 +245,7 @@ describe('SonicxWeb Instance', function () {
         });
 
         it('should reset the private key if the address doesn\'t match', function () {
-            const tronWeb = tronWebBuilder.createInstance();
+            const tronWeb = sonicxwebBuilder.createInstance();
 
             assert.equal(tronWeb.defaultPrivateKey, PRIVATE_KEY);
 
@@ -259,7 +259,7 @@ describe('SonicxWeb Instance', function () {
         });
 
         it('should not reset the private key if the address matches', function () {
-            const tronWeb = tronWebBuilder.createInstance();
+            const tronWeb = sonicxwebBuilder.createInstance();
 
             tronWeb.setAddress(ADDRESS_BASE58);
 
@@ -269,7 +269,7 @@ describe('SonicxWeb Instance', function () {
         it('should emit an addressChanged event', function (done) {
             this.timeout(1000);
 
-            const tronWeb = tronWebBuilder.createInstance();
+            const tronWeb = sonicxwebBuilder.createInstance();
 
             tronWeb.on('addressChanged', ({hex, base58}) => {
                 done(
@@ -284,14 +284,14 @@ describe('SonicxWeb Instance', function () {
 
     describe('#isValidProvider()', function () {
         it('should accept a valid provider', function () {
-            const tronWeb = tronWebBuilder.createInstance();
+            const tronWeb = sonicxwebBuilder.createInstance();
             const provider = new HttpProvider(FULL_NODE_API);
 
             assert.equal(tronWeb.isValidProvider(provider), true);
         });
 
         it('should accept an invalid provider', function () {
-            const tronWeb = tronWebBuilder.createInstance();
+            const tronWeb = sonicxwebBuilder.createInstance();
 
             assert.equal(tronWeb.isValidProvider('test'), false);
         });
@@ -299,7 +299,7 @@ describe('SonicxWeb Instance', function () {
 
     describe('#setFullNode()', function () {
         it('should accept a HttpProvider instance', function () {
-            const tronWeb = tronWebBuilder.createInstance();
+            const tronWeb = sonicxwebBuilder.createInstance();
             const provider = new HttpProvider(FULL_NODE_API);
 
             tronWeb.setFullNode(provider);
@@ -308,7 +308,7 @@ describe('SonicxWeb Instance', function () {
         });
 
         it('should accept a valid URL string', function () {
-            const tronWeb = tronWebBuilder.createInstance();
+            const tronWeb = sonicxwebBuilder.createInstance();
             const provider = FULL_NODE_API;
 
             tronWeb.setFullNode(provider);
@@ -318,20 +318,20 @@ describe('SonicxWeb Instance', function () {
 
         it('should reject a non-string', function () {
             assert.throws(() => {
-                tronWebBuilder.createInstance().setFullNode(true)
+                sonicxwebBuilder.createInstance().setFullNode(true)
             }, 'Invalid full node provided');
         });
 
         it('should reject an invalid URL string', function () {
             assert.throws(() => {
-                tronWebBuilder.createInstance().setFullNode('example.')
+                sonicxwebBuilder.createInstance().setFullNode('example.')
             }, 'Invalid URL provided to HttpProvider');
         });
     });
 
     describe('#setSolidityNode()', function () {
         it('should accept a HttpProvider instance', function () {
-            const tronWeb = tronWebBuilder.createInstance();
+            const tronWeb = sonicxwebBuilder.createInstance();
             const provider = new HttpProvider(SOLIDITY_NODE_API);
 
             tronWeb.setSolidityNode(provider);
@@ -340,7 +340,7 @@ describe('SonicxWeb Instance', function () {
         });
 
         it('should accept a valid URL string', function () {
-            const tronWeb = tronWebBuilder.createInstance();
+            const tronWeb = sonicxwebBuilder.createInstance();
             const provider = SOLIDITY_NODE_API;
 
             tronWeb.setSolidityNode(provider);
@@ -350,20 +350,20 @@ describe('SonicxWeb Instance', function () {
 
         it('should reject a non-string', function () {
             assert.throws(() => {
-                tronWebBuilder.createInstance().setSolidityNode(true)
+                sonicxwebBuilder.createInstance().setSolidityNode(true)
             }, 'Invalid solidity node provided');
         });
 
         it('should reject an invalid URL string', function () {
             assert.throws(() => {
-                tronWebBuilder.createInstance().setSolidityNode('_localhost')
+                sonicxwebBuilder.createInstance().setSolidityNode('_localhost')
             }, 'Invalid URL provided to HttpProvider');
         });
     });
 
     describe('#setEventServer()', function () {
         it('should accept a valid URL string', function () {
-            const tronWeb = tronWebBuilder.createInstance();
+            const tronWeb = sonicxwebBuilder.createInstance();
             const eventServer = EVENT_API;
 
             tronWeb.setEventServer(eventServer);
@@ -372,7 +372,7 @@ describe('SonicxWeb Instance', function () {
         });
 
         it('should reset the event server property', function () {
-            const tronWeb = tronWebBuilder.createInstance();
+            const tronWeb = sonicxwebBuilder.createInstance();
 
             tronWeb.setEventServer(false);
 
@@ -380,7 +380,7 @@ describe('SonicxWeb Instance', function () {
         });
 
         it('should reject an invalid URL string', function () {
-            const tronWeb = tronWebBuilder.createInstance();
+            const tronWeb = sonicxwebBuilder.createInstance();
 
             assert.throws(() => {
                 tronWeb.setEventServer('test%20')
@@ -388,7 +388,7 @@ describe('SonicxWeb Instance', function () {
         });
 
         it('should reject an invalid URL parameter', function () {
-            const tronWeb = tronWebBuilder.createInstance();
+            const tronWeb = sonicxwebBuilder.createInstance();
 
             assert.throws(() => {
                 tronWeb.setEventServer({})
@@ -398,7 +398,7 @@ describe('SonicxWeb Instance', function () {
 
     describe('#currentProviders()', function () {
         it('should return the current providers', function () {
-            const tronWeb = tronWebBuilder.createInstance();
+            const tronWeb = sonicxwebBuilder.createInstance();
             const providers = tronWeb.currentProviders();
 
             assert.equal(providers.fullNode.host, FULL_NODE_API);
@@ -409,7 +409,7 @@ describe('SonicxWeb Instance', function () {
 
     describe('#currentProvider()', function () {
         it('should return the current providers', function () {
-            const tronWeb = tronWebBuilder.createInstance();
+            const tronWeb = sonicxwebBuilder.createInstance();
             const providers = tronWeb.currentProvider();
 
             assert.equal(providers.fullNode.host, FULL_NODE_API);
@@ -722,7 +722,7 @@ describe('SonicxWeb Instance', function () {
 
     describe("#createAccount", function () {
         it("should create a new account", async function () {
-            const tronWeb = tronWebBuilder.createInstance();
+            const tronWeb = sonicxwebBuilder.createInstance();
 
             const newAccount = await SonicxWeb.createAccount();
             assert.equal(newAccount.privateKey.length, 64);
@@ -740,7 +740,7 @@ describe('SonicxWeb Instance', function () {
 
             this.timeout(10000)
 
-            const tronWeb = tronWebBuilder.createInstance();
+            const tronWeb = sonicxwebBuilder.createInstance();
             const isConnected = await tronWeb.isConnected();
 
             assert.isTrue(isConnected.fullNode);
@@ -758,8 +758,8 @@ describe('SonicxWeb Instance', function () {
         let contract
 
         before(async function () {
-            tronWeb = tronWebBuilder.createInstance();
-            accounts = await tronWebBuilder.getTestAccounts(-1);
+            tronWeb = sonicxwebBuilder.createInstance();
+            accounts = await sonicxwebBuilder.getTestAccounts(-1);
 
             const result = await broadcaster(tronWeb.transactionBuilder.createSmartContract({
                 abi: [
@@ -846,8 +846,8 @@ describe('SonicxWeb Instance', function () {
         let eventLength = 0
 
         before(async function () {
-            tronWeb = tronWebBuilder.createInstance();
-            accounts = await tronWebBuilder.getTestAccounts(-1);
+            tronWeb = sonicxwebBuilder.createInstance();
+            accounts = await sonicxwebBuilder.getTestAccounts(-1);
 
             const result = await broadcaster(tronWeb.transactionBuilder.createSmartContract({
                 abi: [
