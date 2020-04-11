@@ -105,14 +105,6 @@ async function test() {
     }
     for (let proposal of proposals) {
         console.log("proposal=", proposal)
-        console.log("  parameters:")
-        for (let parameter of proposal.parameters) {
-            console.log("    key=" + parameter.key + " value=" + parameter.value)
-        }
-        console.log("approvals:")
-        for (let approver of proposal.approvals) {
-            console.log("    " + approver)
-        }
     }
 
     const txId = await voteProposal(1, true);
