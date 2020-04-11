@@ -1,4 +1,3 @@
-const broadcaster = require('../test/helpers/broadcaster');
 const sonicxwebBuilder = require('../test/helpers/sonicxwebBuilder');
 const SonicxWeb = sonicxwebBuilder.SonicxWeb;
 
@@ -61,24 +60,63 @@ async function createProposal() {
     let parameters = [{"key": PT_ENERGY_FEE, "value": 5}]
 
     try {
-        await broadcaster(
-            null,
-            privateKey,
-            await sonicxWeb.transactionBuilder.createProposal(parameters[0], address)
-        );
+        const transaction = await sonicxWeb.transactionBuilder.createProposal(parameters[0], address);
+        const txId = await broadcast(transaction);
+        return txId;
     } catch(e) {
         console.log("Failed in createProposal: " + e)
+        return null
+    }
+}
+
+async function voteProposal(proposalId, hasApproval) {
+    try {
+        const transaction = await sonicxWeb.transactionBuilder.voteProposal(proposalId, hasApproval, address);
+        const txId = await broadcast(transaction);
+        return txId;
+    } catch(e) {
+        console.log("Failed in voteProposal: " + e)
+        return null
+    }
+}
+
+async function broadcast(rowTransaction) {
+    try {
+        const signedTransaction = await sonicxWeb.trx.sign(rowTransaction, privateKey);
+        const receipt = await sonicxWeb.trx.sendRawTransaction(signedTransaction);
+        if (receipt.result) {
+            return receipt.transaction.txID;
+        } else {
+            console.log('Failed in broadcast: receipt.code=', receipt.code);
+        }
+    } catch(e) {
+        console.log("Failed in broadcast: " + e)
+        return null
     }
 }
 
 async function test() {
-    await createProposal()
+    // const txId = await createProposal()
+    // console.log('createProposal: txid=', txId);
 
     const proposals = await getProposals()
     if (!proposals) {
         return
     }
-    console.log("proposals=", proposals)
+    for (let proposal of proposals) {
+        console.log("proposal=", proposal)
+        console.log("  parameters:")
+        for (let parameter of proposal.parameters) {
+            console.log("    key=" + parameter.key + " value=" + parameter.value)
+        }
+        console.log("approvals:")
+        for (let approver of proposal.approvals) {
+            console.log("    " + approver)
+        }
+    }
+
+    const txId = await voteProposal(1, true);
+    console.log('voteProposal: txid=', txId);
 }
 
 test()
