@@ -4,9 +4,12 @@ const SonicxWeb = sonicxwebBuilder.SonicxWeb;
 const privateKey = 'D8B708BFFFA424473D83349CF4C6A2395E4436E065B60F0BF31E582281256D1C';
 
 const sonicxWeb = new SonicxWeb({
-    fullNode: 'https://fullnode-testnet.sonicxhub.com',
-    solidityNode: 'https://solnode-testnet.sonicxhub.com',
-    eventServer: 'https://event-testnet.sonicxhub.com/',
+    fullNode: 'https://fullnode.sonicxhub.com',
+    solidityNode: 'https://solnode.sonicxhub.com',
+    eventServer: 'https://event.sonicxhub.com/',
+    // fullNode: 'https://fullnode-testnet.sonicxhub.com',
+    // solidityNode: 'https://solnode-testnet.sonicxhub.com',
+    // eventServer: 'https://event-testnet.sonicxhub.com/',
     privateKey: privateKey
 })
 
@@ -57,14 +60,25 @@ async function getProposals() {
 }
 
 async function createProposal() {
-    let parameters = [{"key": PT_ENERGY_FEE, "value": 5}]
+    let parameters = [{"key": PT_ENERGY_FEE, "value": 5}, {"key": PT_WITNESS_PAY_PER_BLOCK, "value": 12000000}]
 
     try {
-        const transaction = await sonicxWeb.transactionBuilder.createProposal(parameters[0], address);
+        const transaction = await sonicxWeb.transactionBuilder.createProposal(parameters, address);
         const txId = await broadcast(transaction);
         return txId;
     } catch(e) {
         console.log("Failed in createProposal: " + e)
+        return null
+    }
+}
+
+async function deleteProposal(proposalId) {
+    try {
+        const transaction = await sonicxWeb.transactionBuilder.deleteProposal(proposalId);
+        const txId = await broadcast(transaction);
+        return txId;
+    } catch(e) {
+        console.log("Failed in deleteProposal: " + e)
         return null
     }
 }
@@ -107,8 +121,10 @@ async function test() {
         console.log("proposal=", proposal)
     }
 
-    const txId = await voteProposal(1, true);
-    console.log('voteProposal: txid=', txId);
+    // const txId = await voteProposal(2, true);
+    // console.log('voteProposal: txid=', txId);
+
+    // await deleteProposal(1);
 }
 
 test()
