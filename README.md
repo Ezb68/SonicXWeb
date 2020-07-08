@@ -92,6 +92,8 @@ In order to contribute you can
 * do your changes to the code
 * build the SonicxWeb dist files — `npm run build`
 * push your changes and open a pull request
+* remove the last line in SonicxWeb-sonicxlink-mobile.js because it's not code
+* publish the file as https://api.sonicxhub.com/js/SonicxWeb-sonicxlink-mobile.js
 
 
 ## Licence

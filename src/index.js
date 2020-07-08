@@ -397,3 +397,58 @@ export default class SonicxWeb extends EventEmitter {
         });
     }
 };
+
+async function signOnMobile(transaction = false, privateKey = false, useTronHeader = true, multisig = false, callback = false) {
+    const isMessageSigning = utils.isString(transaction);
+    var rawData = isMessageSigning ? transaction : JSON.stringify(transaction);
+
+    return new Promise((resolve,reject)=>{
+        window.callback = function(signedData) {
+            if (isMessageSigning) {
+                if (callback) {
+                    return callback(null, signedData);
+                } else {
+                    return resolve(signedData);
+                }
+            }
+            return resolve(JSON.parse(signedData));
+        };
+        window.onerror = function(err) {
+            reject(err);
+        }
+        iSonicx.sign(rawData, "callback")
+      });
+};
+
+function attachSonicxlinkMobile() {
+    var sonicxWeb;
+    if (iSonicx === undefined || iSonicx === null) {
+        console.log("iSonicx is invalid");
+        return;
+    }
+    if (iSonicx.isTest()) {
+        sonicxWeb = new SonicxWeb({
+            fullNode: 'https://fullnode.sonicxhub.com',
+            solidityNode: 'https://solnode.sonicxhub.com',
+            eventServer: 'https://event.sonicxhub.com/',
+            fullHost: "https://fullnode.sonicxhub.com",
+        });
+    } else {
+        sonicxWeb = new SonicxWeb({
+            fullNode: 'https://fullnode-testnet.sonicxhub.com',
+            solidityNode: 'https://solnode-testnet.sonicxhub.com',
+            eventServer: 'https://event-testnet.sonicxhub.com/',
+            fullHost: "https://fullnode-testnet.sonicxhub.com",
+        });
+    }
+
+    sonicxWeb.trx.sign = signOnMobile;
+    sonicxWeb.trx.signTransaction = signOnMobile;
+
+    const address =iSonicx.getCurrentAccount();
+    sonicxWeb.setAddress(address);
+
+    window.sonicxWeb = sonicxWeb;
+    console.log("inject mobile sonicxWeb success");
+};
+attachSonicxlinkMobile();
