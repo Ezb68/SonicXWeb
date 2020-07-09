@@ -432,6 +432,7 @@ function attachSonicxlinkMobile() {
             solidityNode: 'https://solnode.sonicxhub.com',
             eventServer: 'https://event.sonicxhub.com/',
             fullHost: "https://fullnode.sonicxhub.com",
+            privateKey: 'D8B708BFFFA424473D83349CF4C6A2395E4436E065B60F0BF31E582281256D1C' // default private key to use sonicxWeb
         });
     } else {
         sonicxWeb = new SonicxWeb({
@@ -439,6 +440,7 @@ function attachSonicxlinkMobile() {
             solidityNode: 'https://solnode-testnet.sonicxhub.com',
             eventServer: 'https://event-testnet.sonicxhub.com/',
             fullHost: "https://fullnode-testnet.sonicxhub.com",
+            privateKey: 'D8B708BFFFA424473D83349CF4C6A2395E4436E065B60F0BF31E582281256D1C' // default private key to use sonicxWeb
         });
     }
 
