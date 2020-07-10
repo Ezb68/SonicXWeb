@@ -416,17 +416,64 @@ async function signOnMobile(transaction = false, privateKey = false, useTronHead
         window.onerror = function(err) {
             reject(err);
         }
-        iSonicx.sign(rawData, "callback")
+
+        var message = {
+            funcname: "sign",
+            data: {
+                raw: rawData,
+                callback: "callback",
+            }
+        }
+        window.webkit.messageHandlers.iSonicx.postMessage(message);
+        // iSonicx.sign(rawData, "callback")
       });
 };
 
-function attachSonicxlinkMobile() {
+async function isTest() {
+    return new Promise((resolve,reject)=>{
+        window.isTestCallback = function(flag) {
+            resolve(flag);
+        };
+        window.onerror = function(err) {
+            reject(err);
+        }
+
+        var message = {
+            funcname: "isTest",
+            data: {
+                callback: "isTestCallback",
+            }
+        }
+        window.webkit.messageHandlers.iSonicx.postMessage(message);
+    });
+}
+
+async function getCurrentAccount() {
+    return new Promise((resolve,reject)=>{
+        window.getCurrentAccountCallback = function(address) {
+            resolve(address);
+        };
+        window.onerror = function(err) {
+            reject(err);
+        }
+
+        var message = {
+            funcname: "getCurrentAccount",
+            data: {
+                callback: "getCurrentAccountCallback",
+            }
+        }
+        window.webkit.messageHandlers.iSonicx.postMessage(message);
+    });
+}
+
+async function attachSonicxlinkMobile() {
     var sonicxWeb;
-    if (iSonicx === undefined || iSonicx === null) {
+    if (window.webkit.messageHandlers.iSonicx === undefined || window.webkit.messageHandlers.iSonicx === null) {
         console.log("iSonicx is invalid");
         return;
     }
-    if (!iSonicx.isTest()) {
+    if (!await isTest()) {
         sonicxWeb = new SonicxWeb({
             fullNode: 'https://fullnode.sonicxhub.com',
             solidityNode: 'https://solnode.sonicxhub.com',
@@ -445,7 +492,7 @@ function attachSonicxlinkMobile() {
     sonicxWeb.trx.sign = signOnMobile;
     sonicxWeb.trx.signTransaction = signOnMobile;
 
-    const address =iSonicx.getCurrentAccount();
+    const address = await getCurrentAccount();
     sonicxWeb.setAddress(address);
 
     window.sonicxWeb = sonicxWeb;
