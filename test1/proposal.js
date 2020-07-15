@@ -60,7 +60,8 @@ async function getProposals() {
 }
 
 async function createProposal() {
-    let parameters = [{"key": PT_ENERGY_FEE, "value": 5}, {"key": PT_WITNESS_PAY_PER_BLOCK, "value": 12000000}]
+    // let parameters = [{"key": PT_ENERGY_FEE, "value": 5}, {"key": PT_WITNESS_PAY_PER_BLOCK, "value": 12000000}]
+    let parameters = [{"key": PT_ASSET_ISSUE_FEE, "value": 66666000000}]
 
     try {
         const transaction = await sonicxWeb.transactionBuilder.createProposal(parameters, address);
@@ -121,7 +122,7 @@ async function test() {
         console.log("proposal=", proposal)
     }
 
-    // const txId = await voteProposal(2, true);
+    // const txId = await voteProposal(3, true);
     // console.log('voteProposal: txid=', txId);
 
     // await deleteProposal(1);
