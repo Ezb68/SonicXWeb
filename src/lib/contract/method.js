@@ -232,7 +232,7 @@ export default class Method {
 
                 const output = await this.tronWeb.trx.getTransactionInfo(signedTransaction.txID);
 
-                if (!Object.keys(output).length) {
+                if (!Object.keys(output).length || output.Error == 'class java.lang.NullPointerException : null') {
                     return setTimeout(() => {
                         checkResult(index + 1);
                     }, 3000);
